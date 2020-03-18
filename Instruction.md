@@ -37,28 +37,28 @@ This dataset contains auto racing competition results. The source of this datase
 **Step 1**. Use 'read_GIFGIG_data.R' to create the winning matrix ('w') and the comparison matrix ('A'); this also 
 computes 'd(M)' (m.max) and 'a(M)' (second smallest eigenvalue).
 
-**Step 2**. In 'MMandGDbt.R', we can compute the number of iterations until eps-convergence for both GD and MM algorithm. 
-For GD algorithm, we use function
-
-```r
-Bayesian.GD(init,tiny,alpha,beta,w,m.max)
-```
-
-and for MM algorithm, we use function
+**Step 2**. In 'MMandAccMMbt.R', we can compute the number of iterations until eps-convergence for both MM and AccMM algorithm. 
+For MM algorithm, we use function
 
 ```r
 Bayesian.MM(init,tiny,alpha,beta,w)
 ```
-**Step 3**. For both functions, 'init' is the initial vector value of parameters, 'tiny' is eps. 'w' is the winning matrix and 'm.max' is the maximum number of paired comparison that we computed from 'read_GIFGIF_data.R'. Each of these function will return a matrix called ('Iterationmatrix'). Iterationmatrix(i,j) is the updated parameter value for j-th node at the i-th iteration. The total number of iterations until eps-convergence can be obtained for both GD and MM case using the following code
+
+and for AccMM algorithm, we use function
 
 ```r
-#For GD case
-dim(Bayesian.GD(init,tiny,alpha,beta,w,m.max)$Iterationmatrix)[1]
+Acc.Bayesian.MM(init,tiny,alpha,beta,w)
+```
+**Step 3**. For both functions, 'init' is the initial vector value of parameters, 'tiny' is eps. 'w' is the winning matrix that we computed from 'read_GIFGIF_data.R'. Each of these function will return a matrix called ('Iterationmatrix'). Iterationmatrix(i,j) is the updated parameter value for j-th node at the i-th iteration. The total number of iterations until eps-convergence can be obtained for both MM and AccMM case using the following code
 
+```r
 #For MM case
 dim(Bayesian.MM(init,tiny,alpha,beta,w)$Iterationmatrix)[1]
+
+#For AccMM case
+dim(Acc.Bayesian.MM(init,tiny,alpha,beta,w)$Iterationmatrix)[1]
 ```
-**Step 4**. Repeat the experiment for beta=0.01, 0.1, 1, 10 respectively and then record the number of iterations for each pair of alpha and beta.
+**Step 4**. Repeat the experiment for beta=0.01, 0.1, 1, 10 respectively and then record the number of iterations for each pair of alpha and beta. Note that, for MM case, when beta=0, it will return the MLE (Maximum Likelihood Estimator), which doesn't exist for AccMM case.
 
 ##### Sample dataset <a name="btsampledataset"></a>
 
@@ -81,28 +81,28 @@ computes 'd(M)' (m.max) and 'a(M)' (second smallest eigenvalue) for the sample g
 **Step 1**. Use 'read_Chessrating_data.R' to create the winning matrix ('s') and the comparison matrix ('A'); this also 
 computes 'd(M)' (m.max) and 'a(M)' (second smallest eigenvalue).
 
-**Step 2**. In 'MMandGD_Rao_Kupper.R', we can compute the number of iterations until eps-convergence for both GD and MM algorithm. 
-For GD algorithm, we use function
-
-```r
-Bayesian.GD(init,tiny,alpha,beta,s,m.max,c)
-```
-
-and for MM algorithm, we use function
+**Step 2**. In 'MMandAccMM_Rao_Kupper.R', we can compute the number of iterations until eps-convergence for both MM and AccMM algorithm. 
+For MM algorithm, we use function
 
 ```r
 Bayesian.MM(init,tiny,alpha,beta,s,c)
 ```
-**Step 3**. For both functions, 'init' is the initial vector value of parameters, 'tiny' is eps and 'c'= sqrt(2). 's' is the winning matrix and 'm.max' is the maximum number of paired comparison that we computed from 'read_Chessrating_data.R'. Each of these function will return a matrix called ('Iterationmatrix'). Iterationmatrix(i,j) is the updated parameter value for j-th node at the i-th iteration. The total number of iterations until eps-convergence can be obtained for both GD and MM case using the following code
+
+and for AccMM algorithm, we use function
 
 ```r
-#For GD case
-dim(Bayesian.GD(init,tiny,alpha,beta,s,m.max,c)$Iterationmatrix)[1]
+Acc.Bayesian.MM(init,tiny,alpha,beta,s,c)
+```
+**Step 3**. For both functions, 'init' is the initial vector value of parameters, 'tiny' is eps and 'c'= sqrt(2). 's' is the winning matrix that we computed from 'read_Chessrating_data.R'. Each of these function will return a matrix called ('Iterationmatrix'). Iterationmatrix(i,j) is the updated parameter value for j-th node at the i-th iteration. The total number of iterations until eps-convergence can be obtained for both MM and AccMM case using the following code
 
+```r
 #For MM case
 dim(Bayesian.MM(init,tiny,alpha,beta,s,c)$Iterationmatrix)[1]
+
+#For AccMM case
+dim(Acc.Bayesian.MM(init,tiny,alpha,beta,s,c)$Iterationmatrix)[1]
 ```
-**Step 4**. Repeat the experiment for beta=0.01, 0.1, 1, 10 respectively and then record the number of iterations for each pair of alpha and beta.
+**Step 4**. Repeat the experiment for beta=0.01, 0.1, 1, 10 respectively and then record the number of iterations for each pair of alpha and beta. Note that, for MM case, when beta=0, it will return the MLE (Maximum Likelihood Estimator), which doesn't exist for AccMM case.
 
 ##### Sample dataset <a name="rksampledataset"></a>
 
@@ -122,26 +122,26 @@ computes 'd(M)' (m.max) and 'a(M)' (second smallest eigenvalue) for the sample g
 
 **Step 1**. Use 'read_NASCAR_data.R' to create the  matrix ('playersmatrix') with playersmatrix(i,j) represents as the player's ID for i-th race and j-th ranked player; this also computes the comparison matrix ('A'), 'd(M)' (m.max) and 'a(M)' (second smallest eigenvalue).
 
-**Step 2**. In 'MMandGD_PL.R', we can compute the number of iterations until eps-convergence for both GD and MM algorithm. 
-For GD algorithm, we use function
-
-```r
-Bayesian.GD(init,tiny,alpha,beta,playersmatrix,n)
-```
-
-and for MM algorithm, we use function
+**Step 2**. In 'MMandAccMM_PL.R', we can compute the number of iterations until eps-convergence for both MM and AccMM algorithm. 
+For MM algorithm, we use function
 
 ```r
 Bayesian.MM(init,tiny,alpha,beta,playersmatrix,n)
 ```
-**Step 3**. For both functions, 'init' is the initial vector value of parameters, 'tiny' is eps. 'playersmatrix' is the matrix ('playersmatrix') that we computed from 'read_NASCAR_data.R'. Each of these function will return a matrix called ('Iterationmatrix'). Iterationmatrix(i,j) is the updated parameter value for j-th node at the i-th iteration. The total number of iterations until eps-convergence can be obtained for both GD and MM case using the following code
+
+and for AccMM algorithm, we use function
 
 ```r
-#For GD case
-dim(Bayesian.GD(init,tiny,alpha,beta,playersmatrix,n)$Iterationmatrix)[1]
+Acc.Bayesian.MM(init,tiny,alpha,beta,playersmatrix,n)
+```
+**Step 3**. For both functions, 'init' is the initial vector value of parameters, 'tiny' is eps. 'playersmatrix' is the matrix ('playersmatrix') that we computed from 'read_NASCAR_data.R'. Each of these function will return a matrix called ('Iterationmatrix'). Iterationmatrix(i,j) is the updated parameter value for j-th node at the i-th iteration. The total number of iterations until eps-convergence can be obtained for both MM and AccMM case using the following code
 
+```r
 #For MM case
 dim(Bayesian.MM(init,tiny,alpha,beta,playersmatrix,n)$Iterationmatrix)[1]
+
+#For AccMM case
+dim(Acc.Bayesian.MM(init,tiny,alpha,beta,playersmatrix,n)$Iterationmatrix)[1]
 ```
-**Step 4**. Repeat the experiment for beta=0.01, 0.1, 1, 10 respectively and then record the number of iterations for each pair of alpha and beta.
+**Step 4**. Repeat the experiment for beta=0.01, 0.1, 1, 10 respectively and then record the number of iterations for each pair of alpha and beta. Note that, for MM case, when beta=0, it will return the MLE (Maximum Likelihood Estimator), which doesn't exist for AccMM case.
 
